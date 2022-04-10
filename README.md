@@ -1,8 +1,8 @@
-# pretty-university-sheduler-core
+# pretty-university-schedule-core
 
 [![](https://jitpack.io/v/RebootSTR/pretty-university-sheduler-core.svg)](https://jitpack.io/#RebootSTR/pretty-university-sheduler-core)
 
-This is a core for drawing university sheduler.
+This is a core for drawing university schedule.
 
 ## Instalation
 
@@ -16,7 +16,7 @@ allprojects {
 }
   
  dependencies {
-	 implementation 'com.github.RebootSTR:pretty-university-sheduler-core:Tag'
+	 implementation 'com.github.RebootSTR:pretty-university-schedule-core:Tag'
  }
 ```
 + Maven
@@ -30,7 +30,7 @@ allprojects {
 
 <dependency>
     <groupId>com.github.RebootSTR</groupId>
-    <artifactId>pretty-university-sheduler-core</artifactId>
+    <artifactId>pretty-university-schedule-core</artifactId>
     <version>Tag</version>
 </dependency>
 ```
