@@ -2,12 +2,12 @@ package reboot.prettyscheduleapp
 
 import drawerHelperClasses.Alignment
 import drawerHelperClasses.Arrangement
+import drawerHelperClasses.Rectangle
+import drawerHelperClasses.Typeface
 import models.Day
 import models.Lesson
 import models.LessonType
 import models.Schedule
-import drawerHelperClasses.Rectangle
-import drawerHelperClasses.Typeface
 import java.io.File
 
 /**
@@ -227,13 +227,14 @@ abstract class CoreDrawer<Color, TextSize>(private val schedule: Schedule) {
         drawBorder(rect, SMALL_BORDER)
         drawString(lesson.name, rect, color = lesson.getColor(), size = lessonFontSize)
         val strings = lesson.teacher.split(" ".toRegex(), 2)
-        drawStringInCorner(strings[0], rect, color = teacherColor, size = teacherFontSize)
+        drawStringInRightTopCorner(strings[0], rect, color = teacherColor, size = teacherFontSize)
         if (strings.size > 1) {
-            drawStringInCorner(
+            drawStringInRightTopCorner(
                 strings[1],
-                rect.also { it.top += paint.getVerticalOffsetForNewLine() },
+                rect,
                 color = teacherColor,
-                size = teacherFontSize
+                size = teacherFontSize,
+                lineNumber = 1
             )
         }
     }
@@ -262,7 +263,8 @@ abstract class CoreDrawer<Color, TextSize>(private val schedule: Schedule) {
         border: Int = 0,
         rotated: Boolean = false,
         color: Color = blackColor,
-        size: TextSize = paint.getTextSize()
+        size: TextSize = paint.getTextSize(),
+        lineNumber: Int = 0
     ) {
         if (rotated) {
             drawRotatedTextWithBorder(text, rect, border, color)
@@ -273,26 +275,31 @@ abstract class CoreDrawer<Color, TextSize>(private val schedule: Schedule) {
         }
         withSize(size) {
             withColor(color) {
-                paint.drawText(text, rect)
+                val newRect = rect.also { paint.getVerticalOffsetForNewLine() * lineNumber }
+
+                paint.drawText(text, newRect)
             }
         }
     }
 
-    private fun drawStringInCorner(
+    private fun drawStringInRightTopCorner(
         text: String,
         rect: Rectangle,
         color: Color = blackColor,
-        size: TextSize = paint.getTextSize()
+        size: TextSize = paint.getTextSize(),
+        lineNumber: Int = 0
     ) {
-        withSize(size) {
-            withColor(color) {
-                paint.setAlignment(Alignment.RIGHT)
-                paint.setArrangement(Arrangement.TOP)
-                paint.drawText(text, rect)
-                paint.setAlignment(Alignment.CENTER)
-                paint.setArrangement(Arrangement.CENTER)
-            }
-        }
+        paint.setAlignment(Alignment.RIGHT)
+        paint.setArrangement(Arrangement.TOP)
+        drawString(
+            text,
+            rect,
+            color = color,
+            size = size,
+            lineNumber = lineNumber
+        )
+        paint.setAlignment(Alignment.CENTER)
+        paint.setArrangement(Arrangement.CENTER)
     }
 
     private fun drawBoldString(
