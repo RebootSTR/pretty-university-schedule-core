@@ -41,4 +41,6 @@ interface AbstractPaint<Color, TextSize> {
     fun cropImageToHeight(height: Int)
 
     fun save(file: File)
+
+    fun getVerticalOffsetForNewLine(): Int
 }

@@ -231,7 +231,7 @@ abstract class CoreDrawer<Color, TextSize>(private val schedule: Schedule) {
         if (strings.size > 1) {
             drawStringInCorner(
                 strings[1],
-                rect.also { it.top += CELL },
+                rect.also { it.top += paint.getVerticalOffsetForNewLine() },
                 color = teacherColor,
                 size = teacherFontSize
             )
