@@ -1,3 +1,3 @@
 
-rootProject.name = "pretty-university-sheduler-core"
+rootProject.name = "pretty-university-schedule-core"
 

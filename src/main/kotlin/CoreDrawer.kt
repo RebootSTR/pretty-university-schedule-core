@@ -53,15 +53,8 @@ abstract class CoreDrawer<Color, TextSize>(private val schedule: Schedule) {
 
     private var height = VOID_BORDER * 2 + HEADER_HEIGHT + LESSON_LINE_HEIGHT * schedule.times.size * schedule.days.size
 
-    abstract fun cropImageToHeight(height: Int)
-
-    abstract fun save(file: File)
-
-    private fun preparePaint() {
-        paint.setColor(blackColor)
-        paint.setTextSize(timeFontSize)
-        paint.setAlignment(Alignment.CENTER)
-        paint.setArrangement(Arrangement.CENTER)
+    fun save(file: File) {
+        paint.save(file)
     }
 
     fun drawSchedule() {
@@ -105,9 +98,15 @@ abstract class CoreDrawer<Color, TextSize>(private val schedule: Schedule) {
         }
 
         // crop
-        cropImageToHeight(dayY + lastLessonCount * LESSON_LINE_HEIGHT + VOID_BORDER)
+        paint.cropImageToHeight(dayY + lastLessonCount * LESSON_LINE_HEIGHT + VOID_BORDER)
     }
 
+    private fun preparePaint() {
+        paint.setColor(blackColor)
+        paint.setTextSize(timeFontSize)
+        paint.setAlignment(Alignment.CENTER)
+        paint.setArrangement(Arrangement.CENTER)
+    }
 
     private fun drawHeaders(x: Int, y: Int, height: Int, width: Int) {
         val evenAndOddWidth = (width - GROUP_NAME_WIDTH) / 2

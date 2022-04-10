@@ -4,6 +4,7 @@ import drawerHelperClasses.Alignment
 import drawerHelperClasses.Arrangement
 import drawerHelperClasses.Rectangle
 import drawerHelperClasses.Typeface
+import java.io.File
 
 /**
  *
@@ -36,4 +37,8 @@ interface AbstractPaint<Color, TextSize> {
     fun fillRect(rect: Rectangle)
 
     fun setBorderStroke(stroke: Int)
+
+    fun cropImageToHeight(height: Int)
+
+    fun save(file: File)
 }
