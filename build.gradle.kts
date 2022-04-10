@@ -13,14 +13,10 @@ repositories {
     maven ("https://jitpack.io")
 }
 
-dependencies {
-    implementation("com.google.code.gson:gson:2.8.9")
-}
-
 application {
     mainClass.set("kotlin/Main.kt")
 }
 
-tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>() {
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
     kotlinOptions.jvmTarget = "1.8"
 }
