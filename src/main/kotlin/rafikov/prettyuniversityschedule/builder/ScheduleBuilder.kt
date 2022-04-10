@@ -1,15 +1,14 @@
-package reboot.prettyscheduleapp
+package rafikov.prettyuniversityschedule.builder
 
-import models.Block
-import models.Day
-import models.Lesson
-import models.Schedule
+import rafikov.prettyuniversityschedule.models.domain.Block
+import rafikov.prettyuniversityschedule.models.domain.Day
+import rafikov.prettyuniversityschedule.models.domain.Lesson
+import rafikov.prettyuniversityschedule.models.domain.Schedule
 
 /**
  *
  * @author Aydar Rafikov
  */
-
 val days = arrayOf(
     "Понедельник",
     "Вторник",

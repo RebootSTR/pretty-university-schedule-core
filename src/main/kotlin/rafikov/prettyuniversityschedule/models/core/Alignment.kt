@@ -1,4 +1,4 @@
-package drawerHelperClasses
+package rafikov.prettyuniversityschedule.models.core
 
 /**
  *

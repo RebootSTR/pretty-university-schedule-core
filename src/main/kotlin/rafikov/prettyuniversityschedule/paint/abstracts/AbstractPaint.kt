@@ -1,9 +1,9 @@
-package reboot.prettyscheduleapp
+package rafikov.prettyuniversityschedule.paint.abstracts
 
-import drawerHelperClasses.Alignment
-import drawerHelperClasses.Arrangement
-import drawerHelperClasses.Rectangle
-import drawerHelperClasses.Typeface
+import rafikov.prettyuniversityschedule.models.core.Alignment
+import rafikov.prettyuniversityschedule.models.core.Arrangement
+import rafikov.prettyuniversityschedule.models.core.Rectangle
+import rafikov.prettyuniversityschedule.models.core.Typeface
 import java.io.File
 
 /**
