@@ -275,9 +275,9 @@ abstract class CoreDrawer<Color, TextSize>(private val schedule: Schedule) {
         }
         withSize(size) {
             withColor(color) {
-                val newRect = rect.also { paint.getVerticalOffsetForNewLine() * lineNumber }
+                rect.top += paint.getVerticalOffsetForNewLine() * lineNumber
 
-                paint.drawText(text, newRect)
+                paint.drawText(text, rect)
             }
         }
     }
