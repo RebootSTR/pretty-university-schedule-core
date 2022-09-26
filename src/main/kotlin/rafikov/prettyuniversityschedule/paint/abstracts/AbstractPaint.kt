@@ -43,4 +43,8 @@ interface AbstractPaint<Color, TextSize> {
     fun save(file: File)
 
     fun getVerticalOffsetForNewLine(): Int
+
+    fun setAlpha(alpha: Float)
+
+    fun getAlpha(): Float
 }

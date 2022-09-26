@@ -226,18 +226,27 @@ abstract class CoreDrawer<Color, TextSize>(private val schedule: Schedule) {
 
     private fun drawLesson(lesson: Lesson, rect: Rectangle) {
         drawBorder(rect, SMALL_BORDER)
-        drawString(lesson.name, rect, color = lesson.getColor(), size = lessonFontSize)
-        val strings = lesson.teacher.split(" ".toRegex(), 2)
-        drawStringInRightTopCorner(strings[0], rect, color = teacherColor, size = teacherFontSize)
-        if (strings.size > 1) {
-            drawStringInRightTopCorner(
-                strings[1],
-                rect,
-                color = teacherColor,
-                size = teacherFontSize,
-                lineNumber = 1
-            )
+        withAlpha(if (lesson.hidden) 50f else 100f) {
+            drawString(lesson.name, rect, color = lesson.getColor(), size = lessonFontSize)
+            val strings = lesson.teacher.split(" ".toRegex(), 2)
+            drawStringInRightTopCorner(strings[0], rect, color = teacherColor, size = teacherFontSize)
+            if (strings.size > 1) {
+                drawStringInRightTopCorner(
+                    strings[1],
+                    rect,
+                    color = teacherColor,
+                    size = teacherFontSize,
+                    lineNumber = 1
+                )
+            }
         }
+    }
+
+    private fun withAlpha(alpha: Float, action: () -> Unit) {
+        val old = paint.getAlpha()
+        paint.setAlpha(alpha)
+        action()
+        paint.setAlpha(old)
     }
 
     private fun drawCell(x: Int, y: Int, width: Int, height: Int) {
