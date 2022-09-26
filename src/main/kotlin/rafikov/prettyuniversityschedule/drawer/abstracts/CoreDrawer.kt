@@ -47,12 +47,15 @@ abstract class CoreDrawer<Color, TextSize>(private val schedule: Schedule) {
     abstract val teacherColor: Color
     abstract val copyrightColor: Color
 
+    abstract val hideModePercentage: Float
+
     abstract val whiteColor: Color
     abstract val blackColor: Color
 
     abstract val paint: AbstractPaint<Color, TextSize>
 
     private var height = VOID_BORDER * 2 + HEADER_HEIGHT + LESSON_LINE_HEIGHT * schedule.times.size * schedule.days.size
+    private var isHideMode = false
 
     fun save(file: File) {
         paint.save(file)
@@ -217,6 +220,7 @@ abstract class CoreDrawer<Color, TextSize>(private val schedule: Schedule) {
                         drawLesson(this, Rectangle(lesson2X, lY, lessonWidth, lineHeight))
                     }
                 }
+
                 lesson.both != null -> {
                     drawLesson(lesson.both, fullRect)
                 }
@@ -226,7 +230,7 @@ abstract class CoreDrawer<Color, TextSize>(private val schedule: Schedule) {
 
     private fun drawLesson(lesson: Lesson, rect: Rectangle) {
         drawBorder(rect, SMALL_BORDER)
-        withAlpha(if (lesson.hidden) 50f else 100f) {
+        withHide {
             drawString(lesson.name, rect, color = lesson.getColor(), size = lessonFontSize)
             val strings = lesson.teacher.split(" ".toRegex(), 2)
             drawStringInRightTopCorner(strings[0], rect, color = teacherColor, size = teacherFontSize)
@@ -242,11 +246,10 @@ abstract class CoreDrawer<Color, TextSize>(private val schedule: Schedule) {
         }
     }
 
-    private fun withAlpha(alpha: Float, action: () -> Unit) {
-        val old = paint.getAlpha()
-        paint.setAlpha(alpha)
+    private fun withHide(action: () -> Unit) {
+        isHideMode = true
         action()
-        paint.setAlpha(old)
+        isHideMode = false
     }
 
     private fun drawCell(x: Int, y: Int, width: Int, height: Int) {
@@ -256,6 +259,9 @@ abstract class CoreDrawer<Color, TextSize>(private val schedule: Schedule) {
     private fun withColor(color: Color, action: () -> Unit) {
         val lastColor = paint.getColor()
         paint.setColor(color)
+        if (isHideMode) {
+            paint.setAlpha(hideModePercentage)
+        }
         action()
         paint.setColor(lastColor)
     }
@@ -373,9 +379,11 @@ abstract class CoreDrawer<Color, TextSize>(private val schedule: Schedule) {
         LessonType.PRACTICE -> {
             practiceColor
         }
+
         LessonType.LAB -> {
             labColor
         }
+
         LessonType.LECTURE -> {
             lectureColor
         }

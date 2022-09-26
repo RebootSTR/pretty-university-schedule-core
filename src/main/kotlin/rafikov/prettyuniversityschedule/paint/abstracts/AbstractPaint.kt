@@ -45,6 +45,4 @@ interface AbstractPaint<Color, TextSize> {
     fun getVerticalOffsetForNewLine(): Int
 
     fun setAlpha(alpha: Float)
-
-    fun getAlpha(): Float
 }
