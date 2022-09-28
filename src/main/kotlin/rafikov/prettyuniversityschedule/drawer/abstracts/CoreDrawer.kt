@@ -230,7 +230,7 @@ abstract class CoreDrawer<Color, TextSize>(private val schedule: Schedule) {
 
     private fun drawLesson(lesson: Lesson, rect: Rectangle) {
         drawBorder(rect, SMALL_BORDER)
-        withHide {
+        withHide(lesson.hidden) {
             drawString(lesson.name, rect, color = lesson.getColor(), size = lessonFontSize)
             val strings = lesson.teacher.split(" ".toRegex(), 2)
             drawStringInRightTopCorner(strings[0], rect, color = teacherColor, size = teacherFontSize)
@@ -246,8 +246,8 @@ abstract class CoreDrawer<Color, TextSize>(private val schedule: Schedule) {
         }
     }
 
-    private fun withHide(action: () -> Unit) {
-        isHideMode = true
+    private fun withHide(enable: Boolean, action: () -> Unit) {
+        isHideMode = enable
         action()
         isHideMode = false
     }
